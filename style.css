@@ -1,0 +1,749 @@
+/* ========================================================================
+   INVITACIÓN DE BODA — ETAPA 1: CSS
+   Diseño original inspirado en la composición editorial de la referencia.
+   Paleta ENTREGADA POR EL CLIENTE (los 8 colores se usan deliberadamente).
+
+   FOTOS: coloca los archivos en /assets según assets/LEEME.txt.
+   Si las imágenes aún no están, se muestran fondos decorativos de reemplazo.
+   Cuando agregues las fotos, elimina en HTML los textos FOTO... de cada bloque.
+   ======================================================================== */
+
+:root {
+  --sage: #8a8c7a;
+  --gold: #f1ba59;
+  --champagne: #f1d6a9;
+  --marigold: #d89017;
+  --terracotta: #ce5012;
+
+  --rose: #d33b57;
+  --wine: #92042c;
+  --olive: #555a38;
+
+  --paper: #f8f6f0;
+  --paper-dark: #f0ede5;
+  --surface: #fffdf9;
+  --ink: #3e4034;
+  --muted: #74766d;
+  --line: rgba(85, 90, 56, 0.19);
+
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-script: 'Parisienne', 'Brush Script MT', cursive;
+  --font-body: 'DM Sans', Arial, sans-serif;
+
+  --space-section: clamp(76px, 9vw, 125px);
+  --container: 1000px;
+
+}
+
+/* --- REINICIO Y ACCESIBILIDAD ----------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at top left, rgba(241, 214, 169, .32), transparent 34%),
+    radial-gradient(ellipse at 100% 65%, rgba(138, 140, 122, .16), transparent 36%),
+    #ebe9e2;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--champagne); color: var(--olive); }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button, select { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+img, svg { display: block; max-width: 100%; }
+:focus-visible { outline: 3px solid var(--terracotta); outline-offset: 4px; }
+.skip-link {
+  position: absolute; z-index: 100; top: -100px; left: 16px;
+  padding: 10px 16px; background: white; border: 1px solid var(--sage);
+}
+.skip-link:focus { top: 12px; }
+
+.site-shell {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+  background: var(--paper);
+  box-shadow: 0 18px 100px rgba(65, 63, 45, .10);
+  overflow: clip;
+}
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--space-section) clamp(24px, 6.5vw, 85px);
+}
+.section-heading { max-width: 680px; margin: 0 auto 48px; text-align: center; }
+.section-heading--compact { margin-bottom: 34px; }
+.section-heading > p:not(.overline) { max-width: 460px; margin: 8px auto 0; color: var(--muted); }
+.overline {
+  margin: 0 0 15px;
+  color: var(--olive);
+  font: 700 10px/1.65 var(--font-body);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+}
+.script-heading {
+  margin: 0;
+  font: 400 clamp(47px, 6vw, 76px)/1.2 var(--font-script);
+  color: var(--olive);
+  text-align: center;
+}
+.section-title {
+  margin: 0 0 20px;
+  font: 500 clamp(38px, 4.6vw, 62px)/1.03 var(--font-display);
+  letter-spacing: -.018em;
+  color: var(--olive);
+}
+.section-title em {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  color: var(--gold);
+}
+.body-copy { max-width: 470px; margin: 0 0 15px; color: var(--muted); }
+.ornament { margin: 40px auto 0; text-align: center; color: var(--sage); }
+.ornament::before, .ornament::after {
+  content: ''; display: inline-block; width: clamp(54px, 11vw, 128px);
+  height: 1px; background: var(--line); vertical-align: middle;
+}
+.ornament span { padding: 0 16px; font: 30px/1 var(--font-display); vertical-align: middle; }
+.ornament--leaf span { color: var(--gold); font-size: 18px; }
+
+/* --- FOTOGRAFÍAS / PLACEHOLDERS -------------------------------------- */
+.photo-surface {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  isolation: isolate;
+}
+.photo-surface::before {
+  content: ''; position: absolute; z-index: -1; inset: 0;
+}
+
+/* La captura recibida mide solo 126px de ancho, por lo que NO se reutiliza
+   como fotografía. Estas rutas esperan imágenes originales exportadas de Canva. */
+.cover__photo {
+  background-image: linear-gradient(145deg, rgba(214, 97, 93, 0), rgba(85, 90, 56, 0)), url('assets/test1.png');
+}
+.introduction__photo {
+  background-image: linear-gradient(145deg, rgba(241, 214, 169, .08), rgba(85, 90, 56, .16)), url('assets/IMG_6710.PNG');
+  background-color: #a6a18e;
+}
+.photo-surface--ceremony {
+  background-image: linear-gradient(150deg, rgba(241, 214, 169, .22), rgba(206, 80, 18, .10)), url('assets/ceremonia.jpeg');
+  background-color: #b4ab90;
+}
+.photo-surface--reception {
+  background-image: linear-gradient(150deg, rgba(241, 214, 169, .15), rgba(85, 90, 56, .18)), url('assets/recepcion.png');
+  background-color: #a6a798;
+}
+
+
+/* --- PORTADA --------------------------------------------------------- */
+.cover {
+  position: relative;
+  min-height: min(100svh, 1000px);
+  padding: clamp(35px, 6vw, 68px) 24px 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 28%, rgba(241, 214, 169, .30), transparent 48%),
+    linear-gradient(180deg, #fcfaf5, var(--paper));
+  text-align: center;
+}
+.cover::before {
+  content: ''; position: absolute; inset: 14px;
+  border: 1px solid rgba(138, 140, 122, .22);
+  pointer-events: none;
+}
+.cover__content { position: relative; z-index: 1; width: min(100%, 740px); }
+.cover__topline { display: flex; align-items: center; justify-content: center; gap: 16px; color: var(--olive); font: 600 9px var(--font-body); letter-spacing: .25em; }
+.fine-rule { display: block; width: 36px; height: 1px; background: var(--sage); opacity: .65; }
+.monogram {
+  display: flex; align-items: baseline; justify-content: center;
+  margin: 20px auto -4px; line-height: 1;
+  font: 400 clamp(34px, 5vw, 52px)/1 var(--font-display);
+  color: var(--sage);
+}
+.monogram__amp { margin-inline: 8px; color: var(--gold); font: 400 31px var(--font-script); }
+.cover__eyebrow { margin: 12px 0 0; color: var(--olive); font: 600 10px var(--font-body); letter-spacing: .3em; text-transform: uppercase; }
+.cover__names {
+  margin: 5px 0 0;
+  color: var(--olive);
+  font: 400 clamp(68px, 11vw, 122px)/1.05 var(--font-script);
+  text-wrap: balance;
+}
+.cover__names span { color: var(--gold); }
+.cover__intro { margin: -6px 0 24px; color: var(--muted); font: italic 24px/1.3 var(--font-display); }
+.cover__photo {
+  width: min(100%, 350px);
+  height: clamp(280px, 45vw, 400px);
+  margin-inline: auto;
+}
+.cover__photo::before {
+  background: radial-gradient(circle at 75% 20%, rgba(241, 214, 169, .28), transparent 40%), linear-gradient(160deg, rgb(85 90 56 / 0%), rgb(146 4 44 / 0%));
+}
+.cover__photo-corner { position: absolute; z-index: 2; width: 58px; height: 58px; border-color: var(--champagne); opacity: .85; }
+.cover__photo-corner--one { border-top: 1px solid; border-left: 1px solid; left: 21px; top: 21px; }
+.cover__photo-corner--two { border-bottom: 1px solid; border-right: 1px solid; right: 21px; bottom: 21px; }
+.cover__date {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px;
+  margin-top: 38px; color: var(--olive);
+  font: 600 10px var(--font-body); letter-spacing: .12em;
+}
+.cover__date strong { font-weight: 600; letter-spacing: .24em; }
+.cover__date i { height: 18px; width: 1px; background: var(--sage); opacity: .6; }
+.text-link { display: inline-flex; gap: 12px; align-items: center; color: var(--gold); font: 600 10px var(--font-body); letter-spacing: .18em; text-transform: uppercase; }
+.text-link span { font-size: 19px; transition: transform .25s ease; }
+.text-link:hover span { transform: translateY(4px); }
+.cover__entry { margin-top: 31px; }
+.cover__flourish {
+  position: absolute; width: 170px; height: 230px;
+  pointer-events: none; opacity: .40;
+  border: 1px solid var(--sage); border-radius: 75% 0 70% 0;
+}
+.cover__flourish--left { left: -105px; top: 38%; transform: rotate(-28deg); }
+.cover__flourish--right { right: -110px; bottom: 8%; transform: rotate(149deg); }
+
+/* --- CUENTA REGRESIVA ------------------------------------------------- */
+.countdown-section { padding-top: 80px; padding-bottom: 82px; text-align: center; background: var(--paper-dark); }
+.countdown-section .script-heading { font-size: clamp(47px, 6vw, 66px); }
+.countdown { display: flex; justify-content: center; align-items: flex-start; gap: clamp(8px, 2.5vw, 30px); max-width: 625px; margin: 0 auto; }
+.countdown__unit { display: grid; justify-items: center; min-width: clamp(48px, 11vw, 95px); }
+.countdown__unit strong { display: block; font: 500 clamp(46px, 7.8vw, 81px)/1 var(--font-display); font-variant-numeric: tabular-nums; color: var(--olive); }
+.countdown__unit span { margin-top: 12px; font: 600 10px var(--font-body); text-transform: uppercase; letter-spacing: .13em; color: var(--muted); }
+.countdown__separator { padding-top: 6px; font: 400 clamp(38px, 7vw, 70px)/1 var(--font-display); color: var(--champagne); }
+.countdown-section .ornament { margin-top: 30px; }
+
+/* --- INTRO ----------------------------------------------------------- */
+.introduction {
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(42px, 7vw, 90px);
+  align-items: center; max-width: var(--container); margin: auto;
+}
+.introduction__copy { padding-block: 16px; }
+.introduction .section-title { 
+  font-size: clamp(34px, 3.2vw, 50px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: normal; }
+.signature { margin: 20px 0 0; color: var(--gold); font: 38px/1.1 var(--font-script); }
+.introduction__photo { height: clamp(420px, 52vw, 540px);  }
+
+/* --- SAVE THE DATE ---------------------------------------------------- */
+.save-date {
+  text-align: center; background:
+    radial-gradient(ellipse at 50% 50%, rgba(241, 214, 169, .32), transparent 64%),
+    var(--paper-dark);
+}
+.save-date .section-heading { margin-bottom: 23px; }
+.date-lockup { display: flex; gap: clamp(10px, 2vw, 22px); align-items: center; justify-content: center; color: var(--olive); }
+.date-lockup__side { width: 125px; padding: 11px 0; border-top: 1px solid var(--sage); border-bottom: 1px solid var(--sage); display: flex; flex-direction: column; gap: 9px; }
+.date-lockup__side span { font: 700 clamp(11px, 1.5vw, 15px)/1.2 var(--font-body); letter-spacing: .12em; }
+.date-lockup__side small { font: 500 9px/1.5 var(--font-body); letter-spacing: .15em; }
+.date-lockup__number { font: 400 clamp(130px, 22vw, 250px)/.83 var(--font-display); color: var(--olive); letter-spacing: -.08em; padding-right: .1em; }
+.save-date__caption { margin: 32px 0 0; font: italic 25px var(--font-display); }
+.save-date .ornament { margin-top: 21px; }
+
+/* --- CEREMONIA Y RECEPCIÓN ------------------------------------------- */
+.venues { background: var(--paper); }
+.venue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 4vw, 42px); max-width: 920px; margin: auto; }
+.venue-card { min-width: 0; background: var(--surface); box-shadow: 0 10px 35px rgba(63, 55, 38, .055); border: 1px solid var(--line); text-align: center; }
+.venue-card__image { height: clamp(230px, 31vw, 350px); }
+.venue-card__image-tag { position: absolute; z-index: 2; left: 20px; bottom: 17px; font: 600 9px var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: white; text-shadow: 0 1px 5px rgba(0,0,0,.5); }
+.venue-card__body { padding: 27px 22px 35px; }
+.venue-card__small-icon { color: var(--gold); font: 34px var(--font-display); }
+.venue-card h3 { margin: 0 0 12px; font: 500 37px/1.05 var(--font-display); color: var(--olive); }
+.venue-card h3 em { font-weight: 400; }
+.venue-card__name { margin: 0 0 14px; font: 600 21px/1.2 var(--font-display); color: var(--ink); }
+.venue-card__time { margin: 0 0 7px; color: var(--gold); font: 700 12px var(--font-body); letter-spacing: .1em; }
+.venue-card__address { max-width: 275px; margin: 0 auto 24px; font: 12px/1.6 var(--font-body); color: var(--muted); }
+.button {
+  min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 11px 26px; border: 1px solid var(--olive); border-radius: 2px;
+  font: 600 10px/1.6 var(--font-body); letter-spacing: .13em; text-transform: uppercase;
+  text-align: center; transition: background .25s, transform .25s, color .25s;
+}
+.button:not(:disabled):hover { transform: translateY(-2px); }
+.button--solid { color: #fff; background: var(--sage); border-color: var(--sage); }
+.button--solid:hover { background: var(--olive); border-color: var(--olive); }
+.button--wine { color: #fff; background: var(--wine); border-color: var(--wine); }
+.button--wine:not(:disabled):hover { background: var(--rose); border-color: var(--rose); }
+.button--full { width: 100%; }
+.button:disabled { opacity: .58; }
+
+/* --- HOSPEDAJE -------------------------------------------------------- */
+
+
+/* GALERÍA CON UNA SOLA IMAGEN */
+.moments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.moments__single {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.moments__collage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+  .moments__single {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .moments__collage {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* --- PROGRAMA --------------------------------------------------------- */
+.schedule { background: var(--paper-dark); }
+.timeline { width: min(100%, 630px); margin: 0 auto; padding: 0; list-style: none; }
+.timeline__item { display: grid; grid-template-columns: minmax(75px, 1fr) 66px minmax(120px, 1fr); align-items: stretch; min-height: 108px; }
+.timeline__time { align-self: center; padding: 12px 13px 12px 0; text-align: right; color: var(--olive); font: 600 clamp(25px, 4vw, 32px)/1 var(--font-display); }
+.timeline__dot { position: relative; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--gold); }
+.timeline__dot::before { content: ''; position: absolute; z-index: 0; width: 1px; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); background: var(--line); }
+.timeline__item:first-child .timeline__dot::before { top: 50%; }
+.timeline__item:last-child .timeline__dot::before { bottom: 50%; }
+.timeline__dot::after { content: ''; position: absolute; z-index: 0; width: 47px; height: 47px; background: var(--paper-dark); border: 1px solid rgba(138,140,122,.19); border-radius: 50%; }
+.timeline__dot { isolation: isolate; }
+.timeline__dot::after { z-index: -1; }
+.timeline__dot::before { z-index: -2; }
+.timeline__copy { align-self: center; padding-left: 8px; }
+.timeline__copy h3 { margin: 0; color: var(--olive); font: 600 clamp(26px, 4vw, 37px)/1.1 var(--font-display); }
+.timeline__copy p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+
+
+/* --- DRESS CODE ------------------------------------------------------- */
+
+
+/* --- REGALOS ---------------------------------------------------------- */
+.gifts { background: linear-gradient(145deg, var(--paper-dark), #f7f0e6); }
+.gifts .section-heading > p:not(.overline) { margin-top: 20px; }
+.gift-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 690px; margin: auto; }
+.gift-option { padding: 29px 22px; background: rgba(255,255,255,.63); border: 1px solid var(--line); text-align: center; }
+.gift-option__icon { display: block; color: var(--terracotta); font: 36px/1.2 var(--font-display); }
+.gift-option h3 { margin: 10px 0 8px; color: var(--olive); }
+.gift-option p { max-width: 230px; margin: auto; font-size: 12px; color: var(--muted); }
+
+/* --- INSTAGRAM / HASHTAG --------------------------------------------- */
+.socials { padding-top: 80px; padding-bottom: 80px; text-align: center; background: #f3e7d7; }
+.socials__symbol { display: block; margin-bottom: 15px; color: var(--marigold); font: 33px var(--font-display); }
+.socials > p:not(.overline):not(.socials__hashtag) { max-width: 410px; margin: 15px auto; }
+.socials__hashtag { display: inline-block; margin: 18px 0 0; color: var(--gold); font: 600 clamp(24px, 4vw, 40px)/1.2 var(--font-display); overflow-wrap: anywhere; }
+
+/* --- RSVP ------------------------------------------------------------- */
+.rsvp { background:
+    radial-gradient(ellipse at 10% 10%, rgba(214, 98, 93, .18), transparent 35%),
+    radial-gradient(ellipse at 90% 90%, rgba(216, 144, 23, .16), transparent 34%),
+    var(--paper);
+}
+.rsvp__card { max-width: 650px; margin: auto; padding: clamp(28px, 6vw, 64px); background: var(--surface); border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(85,90,56,.07); text-align: center; }
+.rsvp__intro { max-width: 420px; margin: 20px auto 33px; color: var(--muted); }
+.rsvp-form { text-align: left; }
+.field { margin-bottom: 18px; }
+.field label, .rsvp-form__attendance legend { display: block; margin-bottom: 8px; color: var(--olive); font: 600 11px/1.6 var(--font-body); letter-spacing: .06em; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 46px; padding: 12px 13px;
+  color: var(--ink); background: var(--paper); border: 1px solid rgba(85,90,56,.28);
+  border-radius: 0; outline-offset: 3px;
+}
+.field textarea { resize: vertical; min-height: 86px; }
+.field input::placeholder, .field textarea::placeholder { color: #969389; }
+.field small { display: block; margin-top: 7px; color: var(--muted); font-size: 10px; }
+.rsvp-form__attendance { margin: 0 0 18px; padding: 0; border: 0; }
+.rsvp-form__attendance legend { margin-bottom: 9px; }
+.choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.choice { position: relative; display: flex; justify-content: center; align-items: center; min-height: 49px; cursor: pointer; }
+.choice input { position: absolute; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.choice span { width: 100%; min-height: 49px; display: grid; place-items: center; padding: 10px; border: 1px solid rgba(85,90,56,.29); background: var(--paper); color: var(--olive); font: 600 11px var(--font-body); text-align: center; transition: background .2s, border-color .2s; }
+.choice input:checked + span { background: rgba(138,140,122,.15); border-color: var(--olive); }
+.choice input:focus-visible + span { outline: 3px solid var(--terracotta); outline-offset: 3px; }
+.rsvp-form__pending { margin: 12px 0 0; text-align: center; color: var(--muted); font: italic 12px/1.5 var(--font-display); }
+.rsvp-form__feedback { margin: 8px 0 0; min-height: 0; color: var(--wine); font-size: 12px; text-align: center; }
+
+/* --- CONTACTO Y CIERRE ----------------------------------------------- */
+.help { padding-top: 70px; padding-bottom: 80px; text-align: center; }
+.help > p:not(.overline) { max-width: 410px; margin: 20px auto 0; color: var(--muted); }
+.help__contact { color: var(--gold) !important; font-weight: 600; font-size: 12px; }
+.footer { position: relative; padding: 64px 20px 70px; text-align: center; background: var(--olive); color: #fffaf2; }
+.footer .ornament { color: var(--champagne); margin: 0 auto 25px; }
+.footer .ornament::before, .footer .ornament::after { background: rgba(241,214,169,.45); }
+.footer__closing { margin: 0 0 12px; font: 400 clamp(46px, 7vw, 70px)/1.05 var(--font-script); }
+.footer__names { margin: 0; font: 500 38px var(--font-display); }
+.footer__date { margin: 11px 0 25px; font: 600 10px var(--font-body); letter-spacing: .3em; }
+.footer__back { font: 600 10px var(--font-body); letter-spacing: .15em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,.46); padding-bottom: 6px; }
+.footer__back:hover { color: var(--champagne); }
+.music-control { position: fixed; z-index: 50; right: 18px; bottom: 20px; width: 50px; height: 50px; border: 1px solid rgba(255,255,255,.9); border-radius: 50%; box-shadow: 0 4px 20px rgba(0,0,0,.13); background: var(--sage); color: white; font-size: 22px; opacity: .65; }
+
+
+/* ==================================
+   SECCIÓN: SOLO ADULTOS
+================================== */
+
+.adults-only {
+  background-color: var(--paper-dark);
+  padding: clamp(90px, 12vw, 160px) 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.adults-only__inner {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.adults-only__message {
+  font: 600 clamp(26px, 4vw, 37px)/1.1 var(--font-display);
+  font-size: clamp(30px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  color: #302d29;
+  margin: 0;
+}
+
+.adults-only__script {
+  font-family: var(--font-script, cursive);
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--olive, #555a38);
+  margin: 20px 0 5px;
+  transform: rotate(-3deg);
+}
+
+.adults-only__moon {
+  font-family: Georgia, serif;
+  font-size: 65px;
+  line-height: 1;
+  color: var(--marigold, #d89017);
+  margin-top: 28px;
+}
+
+.adults-only__note {
+  margin-top: 25px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sage, #8a8c7a);
+}
+
+
+/* CÓDIGO DE VESTIMENTA */
+
+.dresscode-civil {
+  background: #fbf6ef;
+  color: #514534;
+  padding: 90px 22px;
+  text-align: center;
+}
+
+.dresscode-civil__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dresscode-civil__eyebrow {
+  color: var(--sage, #8a8c7a);
+  letter-spacing: 4px;
+  font-size: 11px;
+  margin-bottom: 15px;
+}
+
+
+
+.dresscode-civil__subtitle {
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin: 15px 0 40px;
+}
+
+/* DISTRIBUCIÓN */
+
+.dresscode-civil__layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* IMAGEN */
+
+.dresscode-civil__figure img {
+  display: block;
+  width: 400px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* PALETA */
+
+.dresscode-civil__palette {
+  margin-top: 55px;
+}
+
+.dresscode-civil__palette h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 400;
+  margin-bottom: 22px;
+}
+
+.dresscode-civil__swatches {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dresscode-civil__swatch {
+  display: block;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: var(--swatch);
+  border: 1px solid rgba(0, 0, 0, .08);
+}
+
+.dresscode-civil__closing {
+  margin-top: 35px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 19px;
+  font-style: italic;
+}
+
+.countdown-section,
+.schedule {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Imagen decorativa */
+.countdown-section::before,
+.schedule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image: url("assets/floreado.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  opacity: 0.60;
+}
+
+/* Mantener el contenido sobre las flores */
+.countdown-section > *,
+.schedule > * {
+  position: relative;
+  z-index: 1;
+}
+
+#galeria1{
+  padding-top: 0;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+  .countdown-section::before,
+  .schedule::before {
+    opacity: 0.60;
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 800px) {
+
+  .dresscode-civil__figure {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    max-width: 440px;
+    justify-self: center;
+  }
+}
+
+/* MÓVIL */
+
+@media (max-width: 520px) {
+  .dresscode-civil {
+    padding: 70px 20px;
+  }
+
+  .dresscode-civil__figure {
+    order: 0;
+    max-width: 360px;
+    align-self: center;
+  }
+
+  
+
+  
+
+  
+
+  .dresscode-civil__swatch {
+    width: 34px;
+    height: 34px;
+  }
+
+  .dresscode-civil__swatches {
+    gap: 10px;
+  }
+}
+
+.rsvp__description {
+  max-width: 430px;
+  margin: 0 auto 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.rsvp__planner {
+  margin: 0 0 28px;
+  color: var(--olive);
+  font: 500 25px/1.3 var(--font-display);
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .adults-only {
+    padding: 90px 22px;
+  }
+
+  .adults-only__message {
+    font-size: clamp(28px, 8vw, 42px);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .adults-only__script {
+    font-size: clamp(44px, 12vw, 65px);
+    margin-top: 22px;
+  }
+
+  .adults-only__moon {
+    font-size: 55px;
+  }
+}
+
+
+/* --- PANTALLAS MEDIANAS ---------------------------------------------- */
+@media (max-width: 780px) {
+  .introduction { grid-template-columns: 1fr; max-width: 570px; gap: 36px; }
+  .introduction__copy { text-align: center; }
+  .introduction .body-copy { margin-inline: auto; }
+  .introduction__photo { width: min(100%, 360px); height: 470px; margin-inline: auto; }
+  
+  
+  
+  
+  .venue-card h3 { font-size: 32px; }
+  .venue-card__body { padding-inline: 15px; }
+}
+
+/* --- MÓVILES (la prioridad del diseño) ------------------------------- */
+@media (max-width: 600px) {
+  :root { --space-section: 74px; }
+  body { font-size: 14px; }
+  .site-shell { box-shadow: none; }
+  .section { padding-inline: 24px; }
+  .overline { font-size: 9px; letter-spacing: .23em; }
+  .cover { min-height: 100svh; padding: 50px 24px 46px; }
+  .cover__topline { font-size: 8px; gap: 7px; letter-spacing: .18em; }
+  .fine-rule { width: 20px; }
+  .monogram { margin-top: 8px; }
+  .cover__names { font-size: clamp(61px, 13.3vw, 83px); }
+  .cover__intro { font-size: 21px; margin-bottom: 22px; }
+  .cover__photo { width: min(100%, 300px); height: clamp(265px, 78vw, 365px); }
+  .cover__date { gap: 9px; margin-top: 26px; font-size: 8px; }
+  .cover__date strong { letter-spacing: .13em; }
+  .cover__entry { margin-top: 28px; }
+  .cover__flourish { display: none; }
+  .countdown-section { padding-top: 68px; padding-bottom: 68px; }
+  .countdown__unit strong { font-size: clamp(38px, 11.5vw, 64px); }
+  .countdown__unit span { font-size: 8px; letter-spacing: .04em; margin-top: 9px; }
+  .countdown { gap: 5px; }
+  .countdown__separator { font-size: 35px; padding-top: 1px; }
+  .introduction__photo { height: 430px; }
+  .save-date .section-heading { margin-bottom: 35px; }
+  .date-lockup__side { width: 86px; }
+  .date-lockup__side span { font-size: 10px; letter-spacing: .04em; }
+  .date-lockup__side small { font-size: 8px; letter-spacing: .05em; }
+  .date-lockup__number { font-size: clamp(120px, 34vw, 180px); }
+  .save-date__caption { font-size: 22px; }
+  .venue-grid { grid-template-columns: 1fr; gap: 30px; max-width: 425px; }
+  .venue-card__image { height: clamp(240px, 66vw, 325px); }
+  .venue-card__body { padding: 27px 20px 35px; }
+  
+  
+  .timeline__item { grid-template-columns: minmax(70px, 1fr) 58px minmax(110px, 1fr); min-height: 93px; }
+  .timeline__time { font-size: 25px; padding-right: 6px; }
+  .timeline__dot { font-size: 23px; }
+  .timeline__dot::after { width: 41px; height: 41px; }
+  .timeline__copy h3 { font-size: 29px; }
+  .timeline__copy p { font-size: 11px; line-height: 1.4; }
+  
+  
+  
+  
+  
+  .gift-option { padding: 25px 18px; }
+  .socials__hashtag { font-size: 27px; }
+  .rsvp__card { padding: 42px 23px; }
+}
+
+@media (max-width: 370px) {
+  .section { padding-inline: 18px; }
+  .cover { padding-inline: 18px; }
+  .cover__names { font-size: 58px; }
+  .cover__date { gap: 6px; font-size: 7px; }
+  .countdown__unit { min-width: 44px; }
+  .countdown__unit strong { font-size: 38px; }
+  .date-lockup { gap: 5px; }
+  .date-lockup__number { font-size: 112px; }
+  .date-lockup__side { width: 76px; }
+  .choice-row { gap: 7px; }
+  .choice span { font-size: 10px; }
+}
+
+/* Respetar preferencias de accesibilidad de movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
