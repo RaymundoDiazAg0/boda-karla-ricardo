@@ -23,8 +23,8 @@
       maxGuests: 4,             // número máximo de pases de esta invitación
     },
     music: {
-      enabled: false,           // cambia a true después de subir tu MP3
-      src: "assets/musica.mp3",
+      enabled: true,           // cambia a true después de subir tu MP3
+      src: "assets/song.mp3",
       volume: 0.45,             // valor entre 0 y 1
     },
     calendar: {
